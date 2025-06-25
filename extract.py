@@ -3,6 +3,7 @@ import re
 import sys
 import pandas as pd
 import subprocess
+import argparse
 from collections import defaultdict
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
@@ -54,6 +55,9 @@ def parse_script_ini(filepath, btf_name_map):
     }
 
     excluded = False
+    resource_type = None
+    skill_type = None
+    skill_capacity = None
 
     with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
         lines = f.readlines()
@@ -97,7 +101,13 @@ def parse_script_ini(filepath, btf_name_map):
                 cleaned = match.group(1).replace("RESOURCE_TRANSPORT_", "").replace("_", " ").lower()
                 if cleaned == "passanger":
                     cleaned = "passenger"
-                data['TransportType'] = cleaned
+                resource_type = cleaned
+        elif "$SKILL_" in line:
+            match = re.search(r'\$(SKILL_[A-Z_]+)\s+(\d+)', line)
+            if match:
+                skill = match.group(1).replace("SKILL_", "").replace("_", " ").lower()
+                skill_type = skill
+                skill_capacity = match.group(2)
         elif line.startswith("$TYPE"):
             match = re.search(r'\$TYPE\s+(VEHICLETYPE_[A-Z_]+)', line)
             if match:
@@ -117,19 +127,22 @@ def parse_script_ini(filepath, btf_name_map):
                 else:
                     sheet = "other"
                 data['_Sheet'] = sheet
-        elif "$SKILL_" in line and data['TransportType'] == "N/A" and data['Capacity'] == "N/A":
-            match = re.search(r'\$(SKILL_[A-Z_]+)\s+(\d+)', line)
-            if match:
-                skill = match.group(1).replace("SKILL_", "").replace("_", " ").lower()
-                data['TransportType'] = skill
-                data['Capacity'] = match.group(2)
         elif line.startswith("$COUNTRY"):
             match = re.search(r'\$COUNTRY\s+(\d+)', line)
             if match:
                 country_id = int(match.group(1))
                 data['Country'] = btf_name_map.get(country_id, f"UnknownCountryID_{country_id}")
 
-    return None if excluded else data
+    if excluded:
+        return None
+
+    if skill_type:
+        data['TransportType'] = skill_type
+        data['Capacity'] = skill_capacity
+    elif resource_type:
+        data['TransportType'] = resource_type
+
+    return data
 
 # === STEP 4: Gather vehicle data ===
 def gather_all_vehicle_data(filter_year=None):
@@ -178,42 +191,43 @@ def autosize_columns(ws):
 
 def export_to_excel(vehicles_by_sheet, year=None):
     filename = f"vehicles_{year}.xlsx" if year else "vehicles.xlsx"
+    filepath = os.path.join(SCRIPT_DIR, filename)
 
     sheet_order = ['road', 'rail', 'water', 'air']
 
     try:
-        with pd.ExcelWriter(filename, engine='openpyxl') as writer:
+        with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
             for sheet_name in sheet_order:
                 if sheet_name in vehicles_by_sheet:
                     df = pd.DataFrame(vehicles_by_sheet[sheet_name])
-                    df.sort_values(by=['TransportType', 'StartYear'], inplace=True, ignore_index=True)
+                    df = df.drop(columns=['_Sheet'], errors='ignore')  # Remove _Sheet column
+                    df.sort_values(by=['VehicleType', 'TransportType', 'StartYear'], inplace=True, ignore_index=True)
                     df.to_excel(writer, index=False, sheet_name=sheet_name)
 
             for sheet_name in sorted(set(vehicles_by_sheet) - set(sheet_order)):
                 df = pd.DataFrame(vehicles_by_sheet[sheet_name])
-                df.sort_values(by=['TransportType', 'StartYear'], inplace=True, ignore_index=True)
+                df = df.drop(columns=['_Sheet'], errors='ignore')  # Remove _Sheet column
+                df.sort_values(by=['VehicleType', 'TransportType', 'StartYear'], inplace=True, ignore_index=True)
                 df.to_excel(writer, index=False, sheet_name=sheet_name)
 
             writer.book.template = False
-        wb = load_workbook(filename)
+        wb = load_workbook(filepath)
         for sheet in wb.worksheets:
             sheet.auto_filter.ref = sheet.dimensions
             autosize_columns(sheet)
-        wb.save(filename)
+        wb.save(filepath)
     except PermissionError:
-        print(f"❌ Cannot write to '{filename}'. Please close it if it's open.")
+        print(f"❌ Cannot write to '{filepath}'. Please close it if it's open.")
         return
 
-    print(f"✅ Excel file written: {filename}")
+    print(f"✅ Excel file written: {filepath}")
+
 
 # === MAIN ===
 if __name__ == "__main__":
-    year = None
-    if len(sys.argv) > 1:
-        try:
-            year = int(sys.argv[1])
-        except ValueError:
-            print("Invalid year argument. Ignoring.")
+    parser = argparse.ArgumentParser(description="Export vehicle data to Excel")
+    parser.add_argument("--year", type=int, help="Filter vehicles available in a specific year (e.g., 1985)")
+    args = parser.parse_args()
 
-    all_data = gather_all_vehicle_data(year)
-    export_to_excel(all_data, year)
+    all_data = gather_all_vehicle_data(filter_year=args.year)
+    export_to_excel(all_data, year=args.year)
