@@ -10,7 +10,8 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 - Extracts relevant vehicle data
 - Supports filtering by a specific year. (Note: start and end date is chosen randomly within the year, so actual availability may vary a bit)
 - Second script to visualize data per vehicle type, also warns about gaps without available vehicles of a type
-![road_harvesting](https://github.com/user-attachments/assets/0ef221e9-4fbb-40bd-9098-776c4636b7a7)
+![road_harvesting](https://github.com/user-attachments/assets/8c454b3c-06b9-41af-bfd5-4362882caf42)
+
 ---
 
 ## 🛠 Setup
@@ -56,4 +57,5 @@ python generate_vehicle_diagrams.py
 ⚠️ Notes
 
     I could only test the Early Start DLC as I don't own any others. Added the other DLCs with the same scheme. If it differs you may have to modify the VEHICLE_SUBFOLDERS variable.
+    Kyrillic letters are not displayed in the diagrams, as the default fonts are not able to.
     Currently no modded vehicles are supported. Might add that in the future.
