@@ -6,20 +6,10 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 
 ## ✨ Features
 
-- Parses all vehicle definitions from game and DLC folders.
+- Parses all vehicle definitions from game and DLC folders
 - Extracts relevant vehicle data
 - Supports filtering by a specific year. (Note: start and end date is chosen randomly within the year, so actual availability may vary a bit)
-
----
-
-## 📁 Output
-
-- A single Excel file: `vehicles.xlsx`  
-  - If a year filter is used, the file will be named: `vehicles_<year>.xlsx`
-- Sheets inside the Excel file:
-  - `Road`, `Rail`, `Water`, `Air`
-- Each row contains data for a single vehicle.
-
+- Second script to visualize data per vehicle type, also warns about gaps without available vehicles of a type
 ---
 
 ## 🛠 Setup
@@ -30,7 +20,7 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 - Install dependencies:
 
 ```bash
-pip install pandas openpyxl
+pip install pandas openpyxl matplotlib
 ```
 
 **2. Prepare BTFTool.exe**
@@ -55,6 +45,10 @@ python extract_vehicles.py
 Run with year filter (e.g., 1975):
 ```
 python extract_vehicles.py 1975
+```
+Generate diagrams and check for gaps (after the first script):
+```
+python generate_vehicle_diagrams.py
 ```
 ✅ Only vehicles available in the given year will be included. As the start and end date is random within the year the vehicle might become available in a later month or has already gone out of service.
 
