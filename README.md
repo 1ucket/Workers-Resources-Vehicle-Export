@@ -35,10 +35,9 @@ pip install pandas openpyxl
 ```
 
 **2. Prepare BTFTool.exe**
+Download BTFTool.exe from: https://github.com/Nargon/BTFTool
 
-    Download BTFTool.exe from: https://github.com/Nargon/BTFTool
-
-    Place it in a subfolder named tools next to the Python script:
+Place it in a subfolder named tools next to the Python script:
 
 📁 your_folder/
 ├── tools/
@@ -58,7 +57,7 @@ Run with year filter (e.g., 1975):
 ```
 python extract_vehicles.py 1975
 ```
-    ✅ Only vehicles available in the given year will be included. As the start and end date is random within the year the vehicle might become available in a later month or has already gone out of service.
+✅ Only vehicles available in the given year will be included. As the start and end date is random within the year the vehicle might become available in a later month or has already gone out of service.
 
 ⚠️ Notes
 
