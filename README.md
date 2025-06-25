@@ -32,6 +32,7 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 
 ```bash
 pip install pandas openpyxl
+```
 
 **2. Prepare BTFTool.exe**
 
@@ -50,13 +51,13 @@ Change GAME_DATA_FOLDER inside the extract.py to your game data folder.
 
 ▶️ Usage
 Run without filtering:
-
+```
 python extract_vehicles.py
-
+```
 Run with year filter (e.g., 1975):
-
+```
 python extract_vehicles.py 1975
-
+```
     ✅ Only vehicles available in the given year will be included. As the start and end date is random within the year the vehicle might become available in a later month or has already gone out of service.
 
 ⚠️ Notes
