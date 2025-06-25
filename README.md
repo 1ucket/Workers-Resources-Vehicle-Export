@@ -8,7 +8,7 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 
 - Parses all vehicle definitions from game and DLC folders.
 - Extracts relevant vehicle data
-- Supports filtering by a specific year. (Note: start and end date is chosen randomly within the year, so it may vary a bit)
+- Supports filtering by a specific year. (Note: start and end date is chosen randomly within the year, so actual availability may vary a bit)
 - Currently only supports Early Start DLC as I don't own any others. Add other DLCs subfolders to the VEHICLE_SUBFOLDERS variable to also include them.
 
 ---
