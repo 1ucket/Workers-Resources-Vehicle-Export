@@ -61,6 +61,5 @@ python extract_vehicles.py 1975
 
 ⚠️ Notes
 
-    If a vehicle has no $RESOURCE_TRANSPORT_TYPE, but includes a skill like $SKILL_HARVESTING, that skill will be used as a proxy transport type and its level as capacity.
     One known issue is that fire trucks are somehow not getting labeled correctly.
     Currently no modded vehicles are supported. Might add that in the future.
