@@ -60,6 +60,5 @@ python extract_vehicles.py 1975
 
 ⚠️ Notes
 
-    One known issue is that fire trucks are somehow not getting labeled correctly.
     I could only test the Early Start DLC as I don't own any others. Added the other DLCs with the same scheme. If it differs you may have to modify the VEHICLE_SUBFOLDERS variable.
     Currently no modded vehicles are supported. Might add that in the future.
