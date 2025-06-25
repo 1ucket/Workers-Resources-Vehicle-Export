@@ -38,14 +38,14 @@ pip install pandas openpyxl
 Download BTFTool.exe from: https://github.com/Nargon/BTFTool
 
 Place it in a subfolder named tools next to the Python script:
-
+```
 📁 your_folder/
 ├── tools/
 │   └── BTFTool.exe
 │   └── BTFTool.exe.config
 │   └── BTFTool.pdb
 ├── extract_vehicles.py
-
+```
 Change GAME_DATA_FOLDER inside the extract.py to your game data folder.
 
 ▶️ Usage
