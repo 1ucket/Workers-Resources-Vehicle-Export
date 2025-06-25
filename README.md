@@ -11,6 +11,7 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 - Supports filtering by a specific year. (Note: start and end date is chosen randomly within the year, so actual availability may vary a bit)
 - Second script to visualize data per vehicle type, also warns about gaps without available vehicles of a type
 ![road_harvesting](https://github.com/user-attachments/assets/8c454b3c-06b9-41af-bfd5-4362882caf42)
+*Example availability diagram for combine harvesters. The skill is displayed on the bars (for cargo vehicles: the capacity)*
 
 ---
 
