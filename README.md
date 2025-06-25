@@ -10,6 +10,9 @@ This script extracts vehicle data from *Workers & Resources: Soviet Republic* ga
 - Extracts relevant vehicle data
 - Supports filtering by a specific year. (Note: start and end date is chosen randomly within the year, so actual availability may vary a bit)
 - Second script to visualize data per vehicle type, also warns about gaps without available vehicles of a type
+
+![road_policebus](https://github.com/user-attachments/assets/caccaa0d-36c9-4098-aba5-28de747c6559)
+
 ---
 
 ## 🛠 Setup
