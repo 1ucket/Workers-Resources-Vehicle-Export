@@ -40,6 +40,7 @@ Place it in a subfolder named tools next to the Python script:
 Change GAME_DATA_FOLDER inside the extract.py to your game data folder.
 
 **3. Usage**
+
 Run without filtering:
 ```
 python extract_vehicles.py
