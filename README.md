@@ -49,14 +49,16 @@ Run with year filter (e.g., 1975):
 ```
 python extract_vehicles.py 1975
 ```
+Only vehicles available in the given year will be included. As the start and end date is random within the year the vehicle might become available in a later month or has already gone out of service.
+
 Generate diagrams and check for gaps (after the first script):
 ```
 python generate_vehicle_diagrams.py
 ```
-✅ Only vehicles available in the given year will be included. As the start and end date is random within the year the vehicle might become available in a later month or has already gone out of service.
+
 
 ⚠️ Notes
 
-    I could only test the Early Start DLC as I don't own any others. Added the other DLCs with the same scheme. If it differs you may have to modify the VEHICLE_SUBFOLDERS variable.
-    Kyrillic letters are not displayed in the diagrams, as the default fonts are not able to.
-    Currently no modded vehicles are supported. Might add that in the future.
+- I could only test the Early Start DLC as I don't own any others. Added the other DLCs with the same scheme. If it differs you may have to modify the VEHICLE_SUBFOLDERS variable.
+- Kyrillic letters are not displayed in the diagrams, as the default fonts are not able to.
+- Currently no modded vehicles are supported. Might add that in the future.
